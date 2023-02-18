@@ -1,3 +1,1 @@
-<app-light></app-light>
-<app-light></app-light>
-<app-light></app-light>
+<app-light *ngFor="let l of lights" [goType]="l.goType"></app-light>

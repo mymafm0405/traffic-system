@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TrafficService } from 'src/app/shared/traffic.service';
 
@@ -9,7 +9,7 @@ import { TrafficService } from 'src/app/shared/traffic.service';
 })
 export class LightComponent {
   backgroundColor = 'red';
-  myInterval: any;
+  @Input() goType: string;
 
   sub1: Subscription;
 

@@ -1,7 +1,4 @@
-<app-direction></app-direction>
-<app-direction></app-direction>
-<app-direction></app-direction>
-<app-direction></app-direction>
+<app-direction *ngFor="let d of currentIntersection.directions" [lights]="d.lights"></app-direction>
 <button class="btn btn-success" (click)="onStartIntersection()">
   Start intersection
 </button>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { TrafficService } from 'src/app/shared/traffic.service';
+import { Component, Input } from '@angular/core';
+import { Light } from 'src/app/shared/light.model';
 
 @Component({
   selector: 'app-direction',
@@ -7,5 +7,5 @@ import { TrafficService } from 'src/app/shared/traffic.service';
   styleUrls: ['./direction.component.css']
 })
 export class DirectionComponent {
-  
+  @Input() lights: Light[];
 }
