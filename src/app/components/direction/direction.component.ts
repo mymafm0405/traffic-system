@@ -8,4 +8,5 @@ import { Light } from 'src/app/shared/light.model';
 })
 export class DirectionComponent {
   @Input() lights: Light[];
+  @Input() intId: number;
 }

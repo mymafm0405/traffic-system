@@ -1,7 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <app-intersection></app-intersection>
+      <app-intersection
+        *ngFor="let int of allIntersections"
+        [currentIntersection]="int"
+      ></app-intersection>
     </div>
   </div>
 </div>

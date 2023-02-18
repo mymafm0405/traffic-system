@@ -1,7 +1,11 @@
 .light {
   border-radius: 50%;
   border: 2px solid #333;
-  width: 150px;
-  height: 150px;
+  width: 75px;
+  height: 75px;
   float: left;
+  text-align: center;
+  padding: 22px 0;
+  font-size: 20px;
+  color: white;
 }

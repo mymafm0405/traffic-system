@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Intersection } from 'src/app/shared/intersection.model';
 import { TrafficService } from 'src/app/shared/traffic.service';
 
@@ -8,15 +8,13 @@ import { TrafficService } from 'src/app/shared/traffic.service';
   styleUrls: ['./intersection.component.css'],
 })
 export class IntersectionComponent {
-  currentIntersection: Intersection;
+  @Input() currentIntersection: Intersection;
+  
 
   constructor(private trafficServ: TrafficService) {}
-
-  ngOnInit() {
-    this.currentIntersection = this.trafficServ.getIntersectionById(1);
-  }
 
   onStartIntersection() {
     this.trafficServ.startIntersection(this.currentIntersection.id);
   }
+  
 }
