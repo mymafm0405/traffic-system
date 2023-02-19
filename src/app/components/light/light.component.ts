@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Intersection } from 'src/app/shared/intersection.model';
 import { TrafficService } from 'src/app/shared/traffic.service';
 
 @Component({
@@ -10,10 +11,11 @@ import { TrafficService } from 'src/app/shared/traffic.service';
 export class LightComponent {
   @Input() goType = '';
   @Input() intId: number;
+  currentActiveGoType = '';
 
-  // @Output() activated = new EventEmitter<boolean>()
+  currentIntersection: Intersection;
 
-  backgroundColor = 'red';  
+  backgroundColor = 'red';
   myClass = '';
 
   sub1: Subscription;
@@ -23,37 +25,32 @@ export class LightComponent {
   ngOnInit() {
     this.myClass = 'glyphicon glyphicon-arrow-' + this.goType;
 
-    // this.sub1 = this.trafficServ.lightStatusChanged.subscribe((data) => {
-    //   if (data.intId === this.intId) {
-    //     if (data.status === 'off') {
-    //       this.backgroundColor = 'red';
-    //     }
-    //     if (data.status === 'green') {
-    //       this.backgroundColor = 'green';
-    //     }
-    //     if (data.status === 'yellow') {
-    //       this.backgroundColor = 'yellow';
-    //     }
-    //     if (data.status === 'ready') {
-    //       this.readyFunc();
-    //     }
-    //   }
-    // });
+    this.trafficServ.goTypeActive.subscribe(goTypeData => {
+      this.currentActiveGoType = goTypeData;
+    })
 
+    this.trafficServ.intActiveChanged.subscribe((int) => {
+      if (int === this.intId && this.currentActiveGoType === this.goType) {
+        this.startWorkingStyle();
+      }
+    });
+
+    this.currentIntersection = this.trafficServ.getIntersectionById(this.intId);
   }
 
-  // startWorkingStyle() {
-  //   this.lightStatusChanged.next({ intId: this.intId, status: 'green' });
-  //   setTimeout(() => {
-  //     this.lightStatusChanged.next({ intId: this.intId, status: 'ready' });
-  //     setTimeout(() => {
-  //       this.lightStatusChanged.next({ intId: this.intId, status: 'yellow' });
-  //       setTimeout(() => {
-  //         this.lightStatusChanged.next({ intId: this.intId, status: 'off' });
-  //       }, 3000);
-  //     }, 5000);
-  //   }, 5000);
-  // }
+  startWorkingStyle() {
+    //
+    this.backgroundColor = 'green';
+    setTimeout(() => {
+      this.readyFunc();
+      setTimeout(() => {
+        this.backgroundColor = 'yellow';
+        setTimeout(() => {
+          this.backgroundColor = 'red';
+        }, 3000);
+      }, 5000);
+    }, 5000);
+  }
 
   readyFunc() {
     this.backgroundColor = '';

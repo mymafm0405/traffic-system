@@ -10,8 +10,9 @@ import { Light } from './light.model';
 export class TrafficService {
   lightStatusChanged = new Subject<{ intId: number; status: string }>();
   intActiveChanged = new Subject<number>();
+  goTypeActive = new Subject<string>();
+  activateNextDirection = new Subject<{activate: boolean, intId: number}>();
 
-  intId: number;
 
   intersections: Intersection[] = [
     new Intersection(1, [
@@ -114,22 +115,6 @@ export class TrafficService {
 
   startIntersection(intersectionId: number) {
     console.log('Intersection Id: ' + intersectionId);
-    this.intId = intersectionId;
     this.intActiveChanged.next(intersectionId);
-
-    // this.startWorkingStyle();
   }
-
-  // startWorkingStyle() {
-  //   this.lightStatusChanged.next({ intId: this.intId, status: 'green' });
-  //   setTimeout(() => {
-  //     this.lightStatusChanged.next({ intId: this.intId, status: 'ready' });
-  //     setTimeout(() => {
-  //       this.lightStatusChanged.next({ intId: this.intId, status: 'yellow' });
-  //       setTimeout(() => {
-  //         this.lightStatusChanged.next({ intId: this.intId, status: 'off' });
-  //       }, 3000);
-  //     }, 5000);
-  //   }, 5000);
-  // }
 }
